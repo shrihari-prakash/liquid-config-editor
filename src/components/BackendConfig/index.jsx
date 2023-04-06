@@ -37,7 +37,15 @@ export default function BackendConfig() {
   const [originalOptions, setOriginalOptions] = useState([]);
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState();
-  const [mounted, setMounted] = useState(true);
+  const [modifiedCount, setModifiedCount] = useState(0);
+
+  useEffect(() => {
+    let count = 0;
+    options.forEach((o, i) => {
+      if (o.default != originalOptions[i].default) count++;
+    });
+    setModifiedCount(count);
+  }, [options]);
 
   useEffect(() => {
     setLoading(true);
@@ -51,10 +59,6 @@ export default function BackendConfig() {
         setLoading(false);
       });
   }, []);
-
-  if (!mounted) {
-    return null;
-  }
 
   if (loading) {
     return (
@@ -94,8 +98,8 @@ export default function BackendConfig() {
         });
         return newOptions;
       });
-      setMounted(false);
-      setTimeout(() => setMounted(true), 0);
+      setLoading(true);
+      setTimeout(() => setLoading(false), 0);
     });
   };
 
@@ -105,7 +109,7 @@ export default function BackendConfig() {
         Liquid Option Manager
       </Typography>
       <Typography color="text.secondary" sx={{ pl: "15px" }}>
-        {options.length} options in loaded.
+        {options.length} options in loaded. {modifiedCount} modified.
       </Typography>
       {options.map((option, index) => {
         if (search && search !== "" && matches(search, option)) {
@@ -115,6 +119,7 @@ export default function BackendConfig() {
           <Option
             option={option}
             index={index}
+            originalOptions={originalOptions}
             setOptions={setOptions}
             key={option.name}
             search={search}

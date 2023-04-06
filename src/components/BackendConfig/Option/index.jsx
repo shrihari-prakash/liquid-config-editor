@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Highlighter from "react-highlight-words";
+import Chip from "@mui/material/Chip";
 
-export default function Option({ option, index, setOptions, search }) {
+export default function Option({
+  option,
+  index,
+  setOptions,
+  search,
+  originalOptions,
+}) {
+  const [mounted, setMounted] = useState(true);
+
+  const onClear = () => {
+    setOptions((options) => {
+      const newOptions = [...options];
+      newOptions[index].default = originalOptions[index].default;
+      return newOptions;
+    });
+    setMounted(false);
+    setTimeout(() => setMounted(true), 0);
+  };
+
   return (
     <Box
       sx={{
@@ -27,6 +46,15 @@ export default function Option({ option, index, setOptions, search }) {
               autoEscape={true}
               textToHighlight={option.name}
             />
+            {originalOptions[index].default != option.default && (
+              <Chip
+                label="Modified"
+                size="small"
+                color="primary"
+                sx={{ ml: "8px" }}
+                onDelete={onClear}
+              />
+            )}
           </Typography>
           <Typography variant="h5" component="div">
             <Highlighter
@@ -47,21 +75,31 @@ export default function Option({ option, index, setOptions, search }) {
               textToHighlight={option.description}
             />
           </Typography>
-          <TextField
-            id="outlined-basic"
-            label="Value"
-            variant="outlined"
-            fullWidth
-            defaultValue={option.default}
-            size="small"
-            onChange={(e) =>
-              setOptions((options) => {
-                const newOptions = [...options];
-                newOptions[index].default = e.target.value;
-                return newOptions;
-              })
-            }
-          />
+          {mounted ? (
+            <TextField
+              label="Value"
+              variant="outlined"
+              fullWidth
+              defaultValue={option.default}
+              size="small"
+              onChange={(e) =>
+                setOptions((options) => {
+                  const newOptions = [...options];
+                  newOptions[index].default = e.target.value;
+                  return newOptions;
+                })
+              }
+            />
+          ) : (
+            <span>
+              <TextField
+                variant="outlined"
+                size="small"
+                label="Value"
+                fullWidth
+              />
+            </span>
+          )}
         </CardContent>
       </Card>
     </Box>
