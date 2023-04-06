@@ -83,6 +83,7 @@ export default function BackendConfig() {
   };
 
   const importOptions = (e) => {
+    setSearch();
     const file = e.target.files.item(0);
     fileToText(file, (text) => {
       text = text.split("\n");
