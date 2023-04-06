@@ -87,7 +87,7 @@ export default function BackendConfig() {
     const file = e.target.files.item(0);
     fileToText(file, (text) => {
       text = text.split("\n");
-
+      setOptions(originalOptions);
       setOptions((options) => {
         const newOptions = [...options];
         text.forEach((line) => {
