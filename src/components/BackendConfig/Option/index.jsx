@@ -4,8 +4,9 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import Highlighter from "react-highlight-words";
 
-export default function Option({ option, index, setOptions }) {
+export default function Option({ option, index, setOptions, search }) {
   return (
     <Box
       sx={{
@@ -20,16 +21,31 @@ export default function Option({ option, index, setOptions }) {
       <Card variant="outlined">
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {option.name}
+            <Highlighter
+              highlightClassName="YourHighlightClass"
+              searchWords={search ? search.split(" ") : []}
+              autoEscape={true}
+              textToHighlight={option.name}
+            />
           </Typography>
           <Typography variant="h5" component="div">
-            {option.displayName}
+            <Highlighter
+              highlightClassName="YourHighlightClass"
+              searchWords={search ? search.split(" ") : []}
+              autoEscape={true}
+              textToHighlight={option.displayName}
+            />
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
             {option.type}
           </Typography>
           <Typography sx={{ mb: 1.5 }} variant="body2">
-            {option.description}
+            <Highlighter
+              highlightClassName="YourHighlightClass"
+              searchWords={search ? search.split(" ") : []}
+              autoEscape={true}
+              textToHighlight={option.description}
+            />
           </Typography>
           <TextField
             id="outlined-basic"

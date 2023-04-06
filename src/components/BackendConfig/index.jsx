@@ -90,7 +90,7 @@ export default function BackendConfig() {
   return (
     <>
       <Typography sx={{ top: 0, p: "15px" }}>
-        {options.length} options found.
+        {options.length} options in system.
       </Typography>
       {options.map((option, index) => {
         if (search && search !== "" && matches(search, option)) {
@@ -102,6 +102,7 @@ export default function BackendConfig() {
             index={index}
             setOptions={setOptions}
             key={option.name}
+            search={search}
           />
         );
       })}
