@@ -100,7 +100,7 @@ export default function BackendConfig() {
         return newOptions;
       });
       setLoading(true);
-      setTimeout(() => setLoading(false), 0);
+      setTimeout(() => setLoading(false), 100);
     });
   };
 
