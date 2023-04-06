@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Option from "./Option";
 import AppBar from "@mui/material/AppBar";
-import { Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const matches = (searchString, option) => {
   const fields = [option.name, option.description];
@@ -32,12 +33,14 @@ function fileToText(file, callback) {
 }
 
 export default function BackendConfig() {
+  const [loading, setLoading] = useState();
   const [originalOptions, setOriginalOptions] = useState([]);
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState();
   const [mounted, setMounted] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     fetch(
       "https://raw.githubusercontent.com/shrihari-prakash/liquid/main/src/service/configuration/options.json"
     )
@@ -45,11 +48,20 @@ export default function BackendConfig() {
       .then((options) => {
         setOptions(options);
         setOriginalOptions(JSON.parse(JSON.stringify(options)));
+        setLoading(false);
       });
   }, []);
 
   if (!mounted) {
     return null;
+  }
+
+  if (loading) {
+    return (
+      <Box sx={{ width: "100%", position: "absolute", top: "0", left: "0" }}>
+        <LinearProgress />
+      </Box>
+    );
   }
 
   const exportOptions = () => {
@@ -89,8 +101,11 @@ export default function BackendConfig() {
 
   return (
     <>
-      <Typography sx={{ top: 0, p: "15px" }}>
-        {options.length} options in system.
+      <Typography variant="h5" component="div" sx={{ pl: "15px" }}>
+        Liquid Option Manager
+      </Typography>
+      <Typography color="text.secondary" sx={{ pl: "15px" }}>
+        {options.length} options in loaded.
       </Typography>
       {options.map((option, index) => {
         if (search && search !== "" && matches(search, option)) {
@@ -118,14 +133,14 @@ export default function BackendConfig() {
           variant="outlined"
           placeholder="Search"
           size="small"
-          sx={{ flex: 1, mr: "4px" }}
+          sx={{ flex: 1, mr: "15px" }}
           onChange={(e) => {
             setSearch(
               e.target.value && e.target.value !== "" ? e.target.value : null
             );
           }}
         />
-        <Button variant="outlined" component="label" sx={{ mr: "4px" }}>
+        <Button variant="outlined" component="label" sx={{ mr: "15px" }}>
           Import
           <input
             hidden

@@ -9,6 +9,11 @@
   -webkit-text-size-adjust: 100%;
 }
 
+.MuiAppBar-root {
+  background-color: #ffffffb0 !important;
+  backdrop-filter: blur(5px) !important;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
