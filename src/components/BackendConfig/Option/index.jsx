@@ -69,7 +69,16 @@ export default function Option({
     >
       <Card variant="outlined">
         <CardContent>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          <Typography
+            sx={{
+              fontSize: 14,
+              height: "24px",
+              display: "flex",
+              alignItems: "center",
+            }}
+            color="text.secondary"
+            gutterBottom
+          >
             {getHighlightned("name")}
             {originalOptions[index].default != option.default && (
               <Chip
