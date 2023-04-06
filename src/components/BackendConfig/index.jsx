@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Option from "./Option";
 import AppBar from "@mui/material/AppBar";
-import { TextField } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 
 const matches = (searchString, option) => {
   const fields = [option.name, option.description];
@@ -10,10 +10,32 @@ const matches = (searchString, option) => {
   );
 };
 
+function download(filename, text) {
+  var element = document.createElement("a");
+  element.setAttribute(
+    "href",
+    "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+  );
+  element.setAttribute("download", filename);
+  element.style.display = "none";
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+}
+
+function fileToText(file, callback) {
+  const reader = new FileReader();
+  reader.readAsText(file);
+  reader.onload = () => {
+    callback(reader.result);
+  };
+}
+
 export default function BackendConfig() {
   const [originalOptions, setOriginalOptions] = useState([]);
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState();
+  const [mounted, setMounted] = useState(true);
 
   useEffect(() => {
     fetch(
@@ -21,23 +43,71 @@ export default function BackendConfig() {
     )
       .then((response) => response.json())
       .then((options) => {
-        console.log(options);
         setOptions(options);
-        setOriginalOptions(options);
+        setOriginalOptions(JSON.parse(JSON.stringify(options)));
       });
   }, []);
 
+  if (!mounted) {
+    return null;
+  }
+
+  const exportOptions = () => {
+    const envVariables = {};
+    options.forEach((o, i) => {
+      if (o.default != originalOptions[i].default) {
+        envVariables[o.envName] = o.default;
+      }
+    });
+    let envString = "";
+    for (const key in envVariables) {
+      envString += `${key}=${envVariables[key]}\n`;
+    }
+    download("_.env", envString);
+  };
+
+  const importOptions = (e) => {
+    const file = e.target.files.item(0);
+    fileToText(file, (text) => {
+      text = text.split("\n");
+
+      setOptions((options) => {
+        const newOptions = [...options];
+        text.forEach((line) => {
+          const [envName, value] = line.split("=");
+          const index = options.findIndex((o) => o.envName === envName);
+          if (index !== -1) {
+            newOptions[index].default = value;
+          }
+        });
+        return newOptions;
+      });
+      setMounted(false);
+      setTimeout(() => setMounted(true), 0);
+    });
+  };
+
   return (
     <>
-      {options.map((option) => {
+      <Typography sx={{ top: 0, p: "15px" }}>
+        {options.length} options found.
+      </Typography>
+      {options.map((option, index) => {
         if (search && search !== "" && matches(search, option)) {
           return null;
         }
-        return <Option option={option} key={option.name} />;
+        return (
+          <Option
+            option={option}
+            index={index}
+            setOptions={setOptions}
+            key={option.name}
+          />
+        );
       })}
       <AppBar
         position="fixed"
-        sx={{ top: "auto", bottom: 0, p: "15px" }}
+        sx={{ top: 0, p: "15px", flexDirection: "row" }}
         color="inherit"
         enableColorOnDark
       >
@@ -47,12 +117,26 @@ export default function BackendConfig() {
           variant="outlined"
           placeholder="Search"
           size="small"
+          sx={{ flex: 1, mr: "4px" }}
           onChange={(e) => {
             setSearch(
               e.target.value && e.target.value !== "" ? e.target.value : null
             );
           }}
         />
+        <Button variant="outlined" component="label" sx={{ mr: "4px" }}>
+          Import
+          <input
+            hidden
+            accept="*"
+            onChange={importOptions}
+            multiple
+            type="file"
+          />
+        </Button>
+        <Button variant="contained" onClick={exportOptions}>
+          Export
+        </Button>
       </AppBar>
     </>
   );

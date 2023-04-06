@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
-export default function Option({ option }) {
+export default function Option({ option, index, setOptions }) {
   return (
     <Box
       sx={{
@@ -17,7 +17,7 @@ export default function Option({ option }) {
         },
       }}
     >
-      <Card variant="outlined" >
+      <Card variant="outlined">
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             {option.name}
@@ -38,6 +38,13 @@ export default function Option({ option }) {
             fullWidth
             defaultValue={option.default}
             size="small"
+            onChange={(e) =>
+              setOptions((options) => {
+                const newOptions = [...options];
+                newOptions[index].default = e.target.value;
+                return newOptions;
+              })
+            }
           />
         </CardContent>
       </Card>
