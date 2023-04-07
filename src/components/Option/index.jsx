@@ -47,6 +47,39 @@ export default function Option({
 
   const optimizedOnChange = useCallback(debounce(onChange), []);
 
+  const getRelatedOptions = () => {
+    let found = false;
+    const related = originalOptions.map((currentOption, index) => {
+      if (currentOption.description.includes(option.name)) {
+        found = true;
+        return (
+          <Chip
+            label={currentOption.name}
+            size="small"
+            color="primary"
+            variant="outlined"
+            sx={{ ml: "8px" }}
+          />
+        );
+      }
+    });
+    if (found) {
+      return [
+        <Typography
+          sx={{
+            fontSize: 13,
+          }}
+          component="span"
+          color="text.secondary"
+          gutterBottom
+        >
+          Related to
+        </Typography>,
+        ...related,
+      ];
+    }
+  };
+
   const getHighlightned = (key) => (
     <Highlighter
       highlightClassName="YourHighlightClass"
@@ -90,6 +123,7 @@ export default function Option({
               />
             )}
           </Typography>
+          {getRelatedOptions()}
           <Typography variant="h5" component="div">
             {getHighlightned("displayName")}
           </Typography>
