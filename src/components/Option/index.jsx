@@ -129,7 +129,7 @@ export default function Option({
             )}
           </Typography>
           {getRelatedOptions()}
-          <Typography variant="h5" component="div" sx={{ mt: "8px" }}>
+          <Typography variant="h6" component="div">
             {getHighlightned("displayName")}
           </Typography>
           <Typography sx={{ mb: 1.5, fontSize: 14 }} color="text.secondary">
