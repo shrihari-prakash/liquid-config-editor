@@ -87,7 +87,6 @@ export default function OptionsList() {
     const file = e.target.files.item(0);
     fileToText(file, (text) => {
       text = text.split("\n");
-
       setOptions((options) => {
         const newOptions = [...options];
         text.forEach((line) => {
@@ -100,7 +99,7 @@ export default function OptionsList() {
         return newOptions;
       });
       setLoading(true);
-      setTimeout(() => setLoading(false), 0);
+      setTimeout(() => setLoading(false), 100);
     });
   };
 
