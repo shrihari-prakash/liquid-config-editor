@@ -24,6 +24,7 @@ export default function Option({
   index,
   setOptions,
   search,
+  doSearch,
   originalOptions,
 }) {
   const [mounted, setMounted] = useState(true);
@@ -60,13 +61,19 @@ export default function Option({
         )
       ) {
         return (
-          <Chip
-            label={currentOriginalOption.name}
-            size="small"
+          <Typography
+            sx={{
+              fontSize: 14,
+              mr: "8px",
+              cursor: "pointer",
+            }}
+            component="a"
             color="primary"
-            variant="outlined"
-            sx={{ mr: "8px" }}
-          />
+            gutterBottom
+            onClick={() => doSearch(currentOriginalOption.name)}
+          >
+            {currentOriginalOption.name}&nbsp;
+          </Typography>
         );
       }
     });
@@ -75,12 +82,13 @@ export default function Option({
         sx={{
           fontSize: 14,
           mr: "8px",
+          mb: "8px",
         }}
         component="span"
         color="text.secondary"
         gutterBottom
       >
-        Related to
+        Related to:
       </Typography>,
       ...related,
     ];
@@ -110,13 +118,11 @@ export default function Option({
         <CardContent>
           <Typography
             sx={{
-              fontSize: 16,
               height: "24px",
               display: "flex",
               alignItems: "center",
             }}
             color="text.secondary"
-            gutterBottom
           >
             {getHighlightned("name")}
             {originalOptions[index].default != option.default && (

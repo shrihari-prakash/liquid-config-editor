@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Option from "../Option";
 import AppBar from "@mui/material/AppBar";
 import { Box, Button, TextField, Typography } from "@mui/material";
@@ -38,6 +38,7 @@ export default function OptionsList() {
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState();
   const [modifiedCount, setModifiedCount] = useState(0);
+  const searchRef = useRef();
 
   useEffect(() => {
     let count = 0;
@@ -103,6 +104,11 @@ export default function OptionsList() {
     });
   };
 
+  const doSearch = (value) => {
+    searchRef.current.querySelector("input").value = value;
+    setSearch(value);
+  };
+
   return (
     <>
       <Typography variant="h5" component="div" sx={{ pl: "15px" }}>
@@ -123,6 +129,7 @@ export default function OptionsList() {
             setOptions={setOptions}
             key={option.name}
             search={search}
+            doSearch={doSearch}
           />
         );
       })}
@@ -139,6 +146,7 @@ export default function OptionsList() {
           placeholder="Search"
           size="small"
           sx={{ flex: 1, mr: "15px" }}
+          ref={searchRef}
           onChange={(e) => {
             setSearch(
               e.target.value && e.target.value !== "" ? e.target.value : null
