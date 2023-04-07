@@ -61,19 +61,12 @@ export default function Option({
         )
       ) {
         return (
-          <Typography
-            sx={{
-              fontSize: 14,
-              mr: "8px",
-              cursor: "pointer",
-            }}
-            component="a"
-            color="primary"
-            gutterBottom
+          <Chip
+            sx={{ mr: "4px" }}
+            size="small"
             onClick={() => doSearch(currentOriginalOption.name)}
-          >
-            {currentOriginalOption.name}&nbsp;
-          </Typography>
+            label={currentOriginalOption.name}
+          ></Chip>
         );
       }
     });
@@ -136,7 +129,7 @@ export default function Option({
             )}
           </Typography>
           {getRelatedOptions()}
-          <Typography variant="h5" component="div">
+          <Typography variant="h5" component="div" sx={{ mt: "8px" }}>
             {getHighlightned("displayName")}
           </Typography>
           <Typography sx={{ mb: 1.5, fontSize: 14 }} color="text.secondary">
