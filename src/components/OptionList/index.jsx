@@ -78,7 +78,11 @@ export default function OptionsList() {
     });
     let envString = "";
     for (const key in envVariables) {
-      envString += `${key}=${envVariables[key]}\n`;
+      let value = envVariables[key];
+      if (value.includes("=")) {
+        value = `"${value}"`;
+      }
+      envString += `${key}=${value}\n`;
     }
     download("_.env", envString);
   };
