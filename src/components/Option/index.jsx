@@ -48,36 +48,42 @@ export default function Option({
   const optimizedOnChange = useCallback(debounce(onChange), []);
 
   const getRelatedOptions = () => {
-    let found = false;
-    const related = originalOptions.map((currentOption, index) => {
-      if (currentOption.description.includes(option.name)) {
-        found = true;
+    if (!option.relatedOptions) {
+      return;
+    }
+    const related = originalOptions.map((currentOriginalOption) => {
+      if (
+        option.relatedOptions.some((currentRelatedOption) =>
+          currentOriginalOption.name.startsWith(
+            currentRelatedOption.replace("*", "")
+          )
+        )
+      ) {
         return (
           <Chip
-            label={currentOption.name}
+            label={currentOriginalOption.name}
             size="small"
             color="primary"
             variant="outlined"
-            sx={{ ml: "8px" }}
+            sx={{ mr: "8px" }}
           />
         );
       }
     });
-    if (found) {
-      return [
-        <Typography
-          sx={{
-            fontSize: 13,
-          }}
-          component="span"
-          color="text.secondary"
-          gutterBottom
-        >
-          Related to
-        </Typography>,
-        ...related,
-      ];
-    }
+    return [
+      <Typography
+        sx={{
+          fontSize: 14,
+          mr: "8px",
+        }}
+        component="span"
+        color="text.secondary"
+        gutterBottom
+      >
+        Related to
+      </Typography>,
+      ...related,
+    ];
   };
 
   const getHighlightned = (key) => (
