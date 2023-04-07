@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Option from "./Option";
+import Option from "../Option";
 import AppBar from "@mui/material/AppBar";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
@@ -32,7 +32,7 @@ function fileToText(file, callback) {
   };
 }
 
-export default function BackendConfig() {
+export default function OptionsList() {
   const [loading, setLoading] = useState();
   const [originalOptions, setOriginalOptions] = useState([]);
   const [options, setOptions] = useState([]);

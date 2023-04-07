@@ -71,7 +71,7 @@ export default function Option({
         <CardContent>
           <Typography
             sx={{
-              fontSize: 14,
+              fontSize: 16,
               height: "24px",
               display: "flex",
               alignItems: "center",
@@ -93,7 +93,7 @@ export default function Option({
           <Typography variant="h5" component="div">
             {getHighlightned("displayName")}
           </Typography>
-          <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          <Typography sx={{ mb: 1.5, fontSize: 14 }} color="text.secondary">
             {option.type}
           </Typography>
           <Typography sx={{ mb: 1.5 }} variant="body2">

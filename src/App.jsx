@@ -1,10 +1,10 @@
 import "./App.css";
-import BackendConfig from "./components/BackendConfig";
+import OptionList from "./components/OptionList";
 
 function App() {
   return (
     <div className="App">
-      <BackendConfig />
+      <OptionList />
     </div>
   );
 }
