@@ -18,7 +18,7 @@ export default function Home() {
         <Card variant="outlined">
           <CardContent>
             <Typography
-              variant="h4"
+              variant="h6"
               component="div"
               color="text.secondary"
               sx={{ display: "flex", alignItems: "center" }}

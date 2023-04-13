@@ -64,7 +64,7 @@ export default function FrontendOptionList() {
   return (
     <div>
       <Typography
-        variant="h4"
+        variant="h6"
         component="div"
         color="text.secondary"
         sx={{ display: "flex", alignItems: "center", pl: "10px" }}

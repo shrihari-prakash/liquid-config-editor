@@ -78,7 +78,7 @@ export default function FrontendOption({
         <CardContent>
           <Typography
             sx={{
-              height: "24px",
+              fontSize: "18px",
               display: "flex",
               alignItems: "center",
               mb: "16px",
