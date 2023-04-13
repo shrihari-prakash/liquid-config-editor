@@ -62,7 +62,7 @@ export default function FrontendOptionList() {
     );
   }
   return (
-    <div>
+    <div style={{ paddingTop: "70px" }}>
       <Typography
         variant="h6"
         component="div"

@@ -4,11 +4,6 @@ import Home from "./components/Home";
 import BackendOptionList from "./components/BackendOptionList";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-const routes = {
-  "/home": () => <Users />,
-  "/dashboard": () => <Dashboard />,
-};
-
 function App() {
   return (
     <div className="App">
