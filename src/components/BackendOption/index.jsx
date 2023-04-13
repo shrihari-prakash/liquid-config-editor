@@ -19,7 +19,7 @@ const debounce = (func) => {
   };
 };
 
-export default function Option({
+export default function BackendOption({
   option,
   index,
   setOptions,

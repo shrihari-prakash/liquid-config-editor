@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Option from "../Option";
+import BackendOption from "../BackendOption";
 import AppBar from "@mui/material/AppBar";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
@@ -11,7 +11,7 @@ const matches = (searchString, option) => {
   );
 };
 
-function download(filename, text) {
+export function download(filename, text) {
   var element = document.createElement("a");
   element.setAttribute(
     "href",
@@ -24,7 +24,7 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
-function fileToText(file, callback) {
+export function fileToText(file, callback) {
   const reader = new FileReader();
   reader.readAsText(file);
   reader.onload = () => {
@@ -32,7 +32,7 @@ function fileToText(file, callback) {
   };
 }
 
-export default function OptionsList() {
+export default function BackendOptionList() {
   const [loading, setLoading] = useState();
   const [originalOptions, setOriginalOptions] = useState([]);
   const [options, setOptions] = useState([]);
@@ -115,18 +115,28 @@ export default function OptionsList() {
 
   return (
     <>
-      <Typography variant="h5" component="div" sx={{ pl: "15px" }}>
+      <Typography
+        variant="h4"
+        component="div"
+        color="text.secondary"
+        sx={{ display: "flex", alignItems: "center", pl: "10px" }}
+      >
+        <img
+          src="https://github.com/shrihari-prakash/liquid/raw/main/src/public/images/app-icon-mini.png"
+          style={{ height: "1em" }}
+        ></img>
         Liquid Option Manager
       </Typography>
       <Typography color="text.secondary" sx={{ pl: "15px" }}>
-        {options.length} options in loaded. {modifiedCount} modified.
+        Backend options. {options.length} options in loaded. {modifiedCount}{" "}
+        modified.
       </Typography>
       {options.map((option, index) => {
         if (search && search !== "" && matches(search, option)) {
           return null;
         }
         return (
-          <Option
+          <BackendOption
             option={option}
             index={index}
             originalOptions={originalOptions}

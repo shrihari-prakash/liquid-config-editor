@@ -1,10 +1,24 @@
 import "./App.css";
-import OptionList from "./components/OptionList";
+import FrontendOptionList from "./components/FrontendOptionList";
+import Home from "./components/Home";
+import BackendOptionList from "./components/BackendOptionList";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+const routes = {
+  "/home": () => <Users />,
+  "/dashboard": () => <Dashboard />,
+};
 
 function App() {
   return (
     <div className="App">
-      <OptionList />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/frontend" element={<FrontendOptionList />} />
+          <Route path="/backend" element={<BackendOptionList />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
