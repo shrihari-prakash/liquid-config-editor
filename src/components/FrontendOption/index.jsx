@@ -32,7 +32,7 @@ export default function FrontendOption({
   const onClear = () => {
     setOptions((options) => {
       const newOptions = { ...options };
-      newOptions[option] = originalOptions[index];
+      newOptions[option] = originalOptions[option];
       return newOptions;
     });
     setMounted(false);

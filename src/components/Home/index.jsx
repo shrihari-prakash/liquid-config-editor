@@ -35,18 +35,12 @@ export default function Home() {
               &nbsp;backend configurations.
             </Typography>
             <Link to="/backend">
-              <Button
-                variant="contained"
-                sx={{ mr: "15px" }}
-                onClick={() => setMode(1)}
-              >
+              <Button variant="contained" sx={{ mr: "15px" }}>
                 Backend
               </Button>
             </Link>
             <Link to="/frontend">
-              <Button variant="contained" onClick={() => setMode(2)}>
-                Frontend
-              </Button>
+              <Button variant="contained">Frontend</Button>
             </Link>
           </CardContent>
         </Card>
