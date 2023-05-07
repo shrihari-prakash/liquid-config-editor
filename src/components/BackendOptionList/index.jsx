@@ -128,7 +128,7 @@ export default function BackendOptionList() {
         Liquid Option Manager
       </Typography>
       <Typography color="text.secondary" sx={{ pl: "15px" }}>
-        Backend options. {options.length} options in loaded. {modifiedCount}{" "}
+        Backend options. {options.length} options loaded. {modifiedCount}{" "}
         modified.
       </Typography>
       {options.map((option, index) => {
