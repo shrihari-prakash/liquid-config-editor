@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import Highlighter from "react-highlight-words";
-import Chip from "@mui/material/Chip";
+import React, { useCallback, useState } from 'react';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import Highlighter from 'react-highlight-words';
+import Chip from '@mui/material/Chip';
 
 const debounce = (func) => {
   let timer;
@@ -21,7 +21,6 @@ const debounce = (func) => {
 
 export default function FrontendOption({
   option,
-  value,
   index,
   setOptions,
   search,
@@ -32,7 +31,7 @@ export default function FrontendOption({
   const onClear = () => {
     setOptions((options) => {
       const newOptions = { ...options };
-      newOptions[option] = originalOptions[option];
+      newOptions[index] = originalOptions[index];
       return newOptions;
     });
     setMounted(false);
@@ -41,77 +40,85 @@ export default function FrontendOption({
 
   const onChange = (e) =>
     setOptions((options) => {
-      const newOptions = { ...options };
+      const newOptions = [...options];
       let value = e.target.value;
       if (!isNaN(value)) {
         value = parseInt(value);
       }
-      if (value === "true" || value === "false") {
-        value = value === "true" ? true : false;
+      if (value === 'true' || value === 'false') {
+        value = value === 'true' ? true : false;
       }
-      newOptions[option] = value;
+      newOptions[index].default = value;
       return newOptions;
     });
 
   const optimizedOnChange = useCallback(debounce(onChange), []);
 
-  const getHighlightned = (text) => (
+  const getHighlightned = (key) => (
     <Highlighter
-      searchWords={search ? search.split(" ") : []}
+      highlightClassName='YourHighlightClass'
+      searchWords={search ? search.split(' ') : []}
       autoEscape={true}
-      textToHighlight={text}
+      textToHighlight={option[key]}
     />
   );
 
   return (
     <Box
       sx={{
-        display: "flex",
-        "& > :not(style)": {
+        display: 'flex',
+        '& > :not(style)': {
           m: 1,
-          width: "100%",
+          width: '100%',
           padding: 1,
         },
       }}
     >
-      <Card variant="outlined">
+      <Card variant='outlined'>
         <CardContent>
           <Typography
             sx={{
-              fontSize: "18px",
-              display: "flex",
-              alignItems: "center",
-              mb: "16px",
+              height: '24px',
+              display: 'flex',
+              alignItems: 'center',
             }}
-            variant="h6"
-            component="div"
+            color='text.secondary'
           >
-            {getHighlightned(option)}
-            {originalOptions[option] != value && (
+            {getHighlightned('name')}
+            {originalOptions[index].default != option.default && (
               <Chip
-                label="Modified"
-                size="small"
-                color="primary"
-                sx={{ ml: "8px" }}
+                label='Modified'
+                size='small'
+                color='primary'
+                sx={{ ml: '8px' }}
                 onDelete={onClear}
               />
             )}
           </Typography>
+          <Typography variant='h6' component='div'>
+            {getHighlightned('displayName')}
+          </Typography>
+          <Typography sx={{ mb: 1.5, fontSize: 14 }} color='text.secondary'>
+            {option.type}
+          </Typography>
+          <Typography sx={{ mb: 1.5 }} variant='body2'>
+            {getHighlightned('description')}
+          </Typography>
           {mounted ? (
             <TextField
-              label="Value"
-              variant="outlined"
+              label='Value'
+              variant='outlined'
               fullWidth
-              defaultValue={value}
-              size="small"
+              defaultValue={option.default}
+              size='small'
               onChange={optimizedOnChange}
             />
           ) : (
             <span>
               <TextField
-                variant="outlined"
-                size="small"
-                label="Value"
+                variant='outlined'
+                size='small'
+                label='Value'
                 fullWidth
               />
             </span>
