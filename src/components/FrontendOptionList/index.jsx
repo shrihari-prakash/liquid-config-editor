@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import FrontendOption from '../FrontendOption';
-import { download, fileToText } from '../BackendOptionList';
+import { download, fileToText, matches } from '../BackendOptionList';
 
 export default function FrontendOptionList() {
   const [loading, setLoading] = useState();
@@ -16,10 +16,6 @@ export default function FrontendOptionList() {
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState();
   const searchRef = useRef();
-
-  const matches = (searchString, option) => {
-    return option.toLowerCase().includes(searchString.toLowerCase());
-  };
 
   const importOptions = (e) => {
     setSearch();
@@ -85,7 +81,7 @@ export default function FrontendOptionList() {
         Frontend options.
       </Typography>
       {options.map((option, index) => {
-        if (search && search !== '' && !matches(search, option)) {
+        if (search && search !== '' && matches(search, option)) {
           return null;
         }
         return (
