@@ -101,9 +101,8 @@ export default function BackendOption({
       sx={{
         display: "flex",
         "& > :not(style)": {
-          m: 1,
-          width: "100%",
-          padding: 1,
+          m: 0.5,
+          width: "100%"
         },
       }}
     >
@@ -132,10 +131,10 @@ export default function BackendOption({
           <Typography variant="h6" component="div">
             {getHighlightned("displayName")}
           </Typography>
-          <Typography sx={{ mb: 1.5, fontSize: 14 }} color="text.secondary">
+          <Typography sx={{ fontSize: 14 }} color="text.secondary">
             {option.type}
           </Typography>
-          <Typography sx={{ mb: 1.5 }} variant="body2">
+          <Typography sx={{ mb: 1 }} variant="body2">
             {getHighlightned("description")}
           </Typography>
           {mounted ? (

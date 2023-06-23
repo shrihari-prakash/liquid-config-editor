@@ -98,10 +98,10 @@ export default function FrontendOption({
           <Typography variant='h6' component='div'>
             {getHighlightned('displayName')}
           </Typography>
-          <Typography sx={{ mb: 1.5, fontSize: 14 }} color='text.secondary'>
+          <Typography sx={{ mb: 1, fontSize: 14 }} color='text.secondary'>
             {option.type}
           </Typography>
-          <Typography sx={{ mb: 1.5 }} variant='body2'>
+          <Typography sx={{ mb: 1}} variant='body2'>
             {getHighlightned('description')}
           </Typography>
           {mounted ? (

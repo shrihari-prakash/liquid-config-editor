@@ -116,7 +116,7 @@ export default function BackendOptionList() {
   return (
     <div style={{ paddingTop: '70px' }}>
       <Typography
-        variant='h6'
+        variant='h5'
         component='div'
         color='text.secondary'
         sx={{ display: 'flex', alignItems: 'center', pl: '10px' }}

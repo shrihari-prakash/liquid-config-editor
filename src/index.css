@@ -16,11 +16,33 @@
 
 .MuiButtonBase-root,
 .MuiInputBase-root {
-  border-radius: 50px !important;
+  border-radius: 4px !important;
+}
+
+.MuiInputBase-root input {
+  padding: 6px 12px !important;
+}
+
+.MuiTypography-h6 {
+  font-size: 1rem !important;
+}
+
+.MuiTypography-body1 {
+  font-size: 0.9rem !important;
 }
 
 .MuiPaper-rounded {
-  border-radius: 15px !important;
+  border-radius: 4px !important;
+}
+
+.MuiCardContent-root {
+  padding: 12px !important;
+}
+
+.MuiPaper-elevation {
+  box-shadow: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 12px !important;
 }
 
 a {
