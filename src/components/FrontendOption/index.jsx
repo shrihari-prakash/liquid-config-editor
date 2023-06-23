@@ -112,7 +112,22 @@ export default function FrontendOption({
               defaultValue={option.default}
               size='small'
               onChange={optimizedOnChange}
-            />
+              InputProps={{
+                startAdornment:
+                  typeof option.default === 'string' &&
+                  option.default.startsWith('#') ? (
+                    <div
+                      style={{
+                        height: '18px',
+                        width: '18px',
+                        borderRadius: '100%',
+                        margin: '0 4px',
+                        backgroundColor: option.default,
+                      }}
+                    ></div>
+                  ) : null,
+              }}
+            ></TextField>
           ) : (
             <span>
               <TextField
