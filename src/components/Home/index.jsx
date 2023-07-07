@@ -24,7 +24,7 @@ export default function Home() {
               sx={{ display: "flex", alignItems: "center" }}
             >
               <img
-                src="https://github.com/shrihari-prakash/liquid/raw/main/src/public/images/app-icon-mini.png"
+                src="https://github.com/shrihari-prakash/liquid/raw/main/src/public/images/app-icon-mini-dark.png"
                 style={{ height: "1em" }}
               ></img>
               Liquid Option Manager
