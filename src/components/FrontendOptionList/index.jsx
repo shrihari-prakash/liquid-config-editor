@@ -72,7 +72,7 @@ export default function FrontendOptionList() {
         sx={{ display: 'flex', alignItems: 'center', pl: '10px' }}
       >
         <img
-          src='https://github.com/shrihari-prakash/liquid/raw/main/src/public/images/app-icon-mini.png'
+          src='https://github.com/shrihari-prakash/liquid/raw/main/src/public/images/app-icon-mini-light.png'
           style={{ height: '1em' }}
         ></img>
         Liquid Option Manager
